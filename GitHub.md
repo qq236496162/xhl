@@ -1,3 +1,11 @@
+# 常用快捷键
+
+- Ctrl+P  **Push** 提交
+
+- Ctrl+Shift+P	**Pull** 恢复
+
+- Ctrl+Shift+F	**show in Explorer** 浏览文件夹
+
 # 安装
 
 **Desktop 安装**
