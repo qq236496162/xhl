@@ -6,7 +6,7 @@ Shader "XHL/CCC01"{
             #pragma vertex vert
             #pragma fragment frag
 
-            // 测试上传 Git
+            // 测试上传 Git 然而
             float4 vert(float4 v: POSITION):SV_POSITION{
                 return mul(UNITY_MATRIX_MVP,v);
             }
