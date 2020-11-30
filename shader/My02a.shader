@@ -1,4 +1,4 @@
-﻿Shader "XHL/C02"{
+﻿Shader "XHL/C02a"{
     // 参数集
     Properties{
         _Color("颜色1",Color) = (1.0,1.0,1.0,1.0)
@@ -34,8 +34,9 @@
             //     return o;
             // }
             void vert(in a2v v,out v2f o){
-                o.pos = UnityObjectToClipPos(v.vertex);
-                o.color = v.normal*0.5+fixed3(0.5,0.5,0.5);
+
+                o.pos = UnityObjectToClipPos(v.vertex);     // Tansform to Clip
+                o.color = v.normal*0.5+fixed3(0.5,0.5,0.5);     // Get VertexNormal
 
             }
 
