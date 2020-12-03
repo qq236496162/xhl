@@ -1,9 +1,14 @@
-﻿Shader "Unlit/000_template"
+﻿/*
+RampTex 
+*/
+
+Shader "Unlit/000_template"
 {
     Properties
     {
         _RampTex("RampTex",2D) = "white"{}
         _Gloss("Gloss",range(1.0,256)) = 20
+        _Specular("Specular",Color) = (1,1,1,1)
 
     }
     SubShader
@@ -21,6 +26,7 @@
             sampler2D _RampTex;
             float4 _RampTex_ST;
             float _Gloss;
+            fixed4 _Specular;
 
             struct a2v
             {
@@ -52,19 +58,19 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed3 worldNormal = normalize(i.worldNormal);
-                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
-                fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
-                fixed3 halfDir = normalize(worldLightDir+viewDir);
+                fixed3 worldNormal = normalize(i.worldNormal);  //Get WorldPosition
+                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));  //Get LigtDir(world)
+                fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos)); //Get ViewDir(world)
+                fixed3 halfDir = normalize(worldLightDir+viewDir);  // Compute HalfDir
                 
-                fixed3 specular =max(0,dot(worldNormal,halfDir));
-                specular = pow(specular,_Gloss);
+                fixed3 specular =max(0,dot(worldNormal,halfDir));   // Compute Specular
+                specular = pow(specular,_Gloss)*_Specular;    // Set Gloss;
 
-                fixed3 lambert = dot(worldNormal,worldLightDir);
-                fixed3 halfLambert = lambert*0.5+0.5;
+                fixed3 lambert = dot(worldNormal,worldLightDir);    // Compute Lambert
+                fixed3 halfLambert = lambert*0.5+0.5;   // Compute HalfLambert
 
-                fixed2 uv = (halfLambert,halfLambert);
-                fixed3 rampTex = tex2D(_RampTex,uv).rgb;
+                fixed2 uv = (halfLambert,halfLambert);  // Set RampTexture as uv
+                fixed3 rampTex = tex2D(_RampTex,uv).rgb;    // Get RampTesture
 
                 fixed3 color = rampTex + specular;
 
