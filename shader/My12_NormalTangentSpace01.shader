@@ -1,11 +1,11 @@
 ﻿/*
-世界空间 计算光照 基于法线贴图
+切线空间 计算光照 基于法线贴图
 使用了 ObjSpaceLightDir、ObjSpaceViewDir 计算LightDir , ViewDir
 使用 UnpackNormal 来做法线映射(0-1) -> (-1,1)    normalmap*2 -1  
 
 */
 
-Shader "Unlit/My13_NormaWorldSpace"
+Shader "Unlit/My12_NormalTangentSpace"
 {
     Properties
     {
@@ -52,9 +52,8 @@ Shader "Unlit/My13_NormaWorldSpace"
             {
                 float4 pos : SV_POSITION;
                 float4 uv : TEXCOORD0;
-                float4 TtoW0 : TEXCOORD1;
-                float4 TtoW1 : TEXCOORD2;
-                float4 TtoW2 : TEXCOORD3;
+                float3 lightDir : TEXCOORD1;
+                float3 viewDir : TEXCOORD2;
             };
 
             // 顶点着色器
@@ -66,41 +65,30 @@ Shader "Unlit/My13_NormaWorldSpace"
                 o.uv.xy = v.texcoord.xy * _DiffuseTex_ST.xy + _DiffuseTex_ST.zw;    // Diffuse's uv
                 o.uv.zw = v.texcoord.xy * _NormalTex_ST.xy + _NormalTex_ST.zw;      // Normal's uv
 
-                float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;             // Transform vertex( obj -> world )
-                fixed3 worldNormal = UnityObjectToWorldNormal(v.normal);
-                fixed3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
-                fixed3 worldBinormal = cross(worldNormal,worldTangent) * v.tangent.w;
+                float3 binormal = cross( v.normal,v.tangent.xyz) * v.tangent.w;     //Get binormal (v.tanget.w = face direction)
+                float3x3 rotation = float3x3(v.tangent.xyz,binormal,v.normal);   // Rotation Matrix (obj - tangent)
 
-                o.TtoW0 = float4(worldTangent.x , worldBinormal.x , worldNormal.x , worldPos.x);
-                o.TtoW1 = float4(worldTangent.y , worldBinormal.y , worldNormal.y , worldPos.y);
-                o.TtoW2 = float4(worldTangent.z , worldBinormal.z , worldNormal.z , worldPos.z);
-                
-
+                o.lightDir = mul(rotation,normalize( ObjSpaceLightDir(v.vertex).xyz)).xyz;      // Get LightDir(Tangent)    (ObjeSpaceLightDir need normalize)
+                o.viewDir = mul(rotation,normalize(ObjSpaceViewDir(v.vertex))).xyz;        // Get ViewDir(Tangent)  (ObjSpaceViewDir need normalize)
                 
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
-            {          
-                
-                fixed3 normalTex = UnpackNormal(tex2D(_NormalTex,i.uv.zw)) ;   // Get Normal Map                
-                normalTex.xy *= _NormalScale;   // Set Normal Scale
-                normalTex.z = sqrt(1.0 - saturate(dot(normalTex.xy,normalTex.xy))); //Compute NormalMap.z
-                normalTex = normalize(half3( dot(i.TtoW0.xyz,normalTex) , dot(i.TtoW1.xyz,normalTex) , dot(i.TtoW2.xyz,normalTex )));   // Transform Normal( Tangent -> world )
-
+            {
+                fixed3 normalTex = UnpackNormal(tex2D(_NormalTex,i.uv.zw));   // Get Normal Map
                 fixed3 diffuseTex = tex2D(_DiffuseTex,i.uv).rgb * _Color.rgb;  // Get Diffuse Map
 
-                float3 worldPos = float3(i.TtoW0.w,i.TtoW1.w,i.TtoW2.w);    // Get vertex(World)
-                fixed3 lightDir = normalize(UnityWorldSpaceLightDir(worldPos));   // Get LightDir(Tangent)
-                fixed3 viewDir = normalize(UnityWorldSpaceViewDir(worldPos)); // Get ViewDir(Tangent)
+                fixed3 lightDir = i.lightDir;   // Get LightDir(Tangent)
+                fixed3 viewDir = i.viewDir; // Get ViewDir(Tangent)
                 fixed3 halfDir = normalize(lightDir + viewDir); //Get halfDir(Tangent)
 
+                fixed3 tangentNormal;   // Compute TantentNormal
+                tangentNormal.xy = normalTex.xy * _NormalScale;    // Set normalmap Scale
+                tangentNormal.z = sqrt(1.0 - saturate(dot(tangentNormal.xy,tangentNormal.xy))); //Compute TangentNormal.z                
 
-
-                
-
-                fixed3 lambert = dot(normalTex,lightDir);   // Compute Lambert
-                fixed3 specular = _Specular.rgb * pow(max(0,dot(normalTex,halfDir)),_Gloss);    // Compute Specular
+                fixed3 lambert = dot(tangentNormal,lightDir);   // Compute Lambert
+                fixed3 specular = _Specular.rgb * pow(max(0,dot(tangentNormal,halfDir)),_Gloss);    // Compute Specular
 
                 fixed3 color = lambert * diffuseTex + specular;
                 
