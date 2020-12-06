@@ -1,4 +1,8 @@
-﻿Shader "Unlit/000_template"
+﻿/*
+
+*/
+
+Shader "XHL/000_template"
 {
     Properties
     {
@@ -6,7 +10,7 @@
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "LightMode"="ForwardBase" }
 
         Pass
         {
@@ -15,7 +19,7 @@
             #pragma fragment frag
 
 
-            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
 
             struct a2v
             {
@@ -25,14 +29,14 @@
 
             struct v2f
             {
-                float4 vertex : SV_POSITION;
+                float4 pos : SV_POSITION;
             };
 
 
             v2f vert (a2v v)
             {   
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
 
                 return o;
             }
