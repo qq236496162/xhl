@@ -1,6 +1,9 @@
 ﻿Shader "XHL/M01"
 {
 
+    Properties{
+        _Gloss("GLOSS" ,range(1,255)) = 20
+    }
     SubShader
     {
         pass{
@@ -10,6 +13,8 @@
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
+
+            float _Gloss;
 
             struct a2v
             {
@@ -49,7 +54,7 @@
                 float vDotr = dot(vDir,rDir);                   // Compute Specular (phong)
 
                 float lambert = max(0,nDotl);
-                float specular = pow(max(0,vDotr),50);                 
+                float specular = pow(max(0,vDotr),_Gloss);                 
 
                 fixed3 finalRGB = lambert + specular;
                 return fixed4(finalRGB,1.0);
