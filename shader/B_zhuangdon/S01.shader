@@ -52,6 +52,7 @@
                 float nDotl = dot(nDir,lDir);                   // Compute lambert
                 float nDoth = dot(nDir, hDir);                  // Compute Specular (blinn phong)
                 float vDotr = dot(vDir,rDir);                   // Compute Specular (phong)
+                float vrDotl = dot(reflect(vDir,nDir),lDir);    // Compute Specular (phong another way)
 
                 float lambert = max(0,nDotl);
                 float specular = pow(max(0,vDotr),_Gloss);                 
