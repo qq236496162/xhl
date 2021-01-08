@@ -31,19 +31,32 @@
                 float3 nDirWS : TEXCOORD1;
             };
             // 声明常量
-            #define twopi 2*3.1415926
+            #define TWO_PI 2*3.1415926
             void Translation(inout float3 vertex){
-                vertex.z += _MoveRange *sin( frac(_Time.z * _MoveSpeed)*twopi);// frac 取时间的小数 0-0.9 *2*pi
+                vertex.z += _MoveRange *sin( frac(_Time.z * _MoveSpeed)*TWO_PI);// frac 取时间的小数 0-0.9 *2*pi
             }
             void Scaling(inout float3 vertex){
-                vertex *=1+ _MoveRange *sin( frac(_Time.z * _MoveSpeed)*twopi);
+                vertex *=1+ _MoveRange *sin( frac(_Time.z * _MoveSpeed)*TWO_PI);
+            }
+            void Rotation(inout float3 vertex){
+                float angleY = _MoveRange *sin(frac(_Time.z * _MoveSpeed))*TWO_PI;
+
+                float radY = radians(angleY); // 角度 -> 弧度
+                // float sinY = sin(radY);  //分开写 
+                // float cosY = cos(radY);
+                float sinY,cosY =0;
+                sincos(radY,sinY,cosY); // 合并写 性能好
+                vertex.xz = float2 (
+                    vertex.x * cosY - vertex.z *sinY, 
+                    vertex.x * sinY + vertex.z * cosY
+                );
             }
 
             // 输出 vert （输入）
             v2f vert (a2v v)
             {   
                 v2f o;
-                Scaling(v.vertex.xyz);
+                Rotation(v.vertex.xyz);
                 o.posCS = UnityObjectToClipPos(v.vertex);       // vertex CS
                 o.posWS = mul(unity_ObjectToWorld,v.vertex);    //  vertex WS
                 o.nDirWS = UnityObjectToWorldNormal(v.normal);  //  nDir WS
