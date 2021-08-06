@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FX_S_FX_CardEadge
+  m_Shader: {fileID: 4800000, guid: be8a1d084253fea41ad7974c721ca544, type: 3}
+  m_ShaderKeywords: _INVERT_DIRECTION_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 835a03579b5498640a958bb1ee83386c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 9ce71fbe2dd88c54799bf014670b4d53, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _noise_tex:
+        m_Texture: {fileID: 2800000, guid: 9ce71fbe2dd88c54799bf014670b4d53, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaCutoff: 0.5
+    - _AppearPos: 2
+    - _AppearRange: 2
+    - _DistortionInt: 0.1
+    - _EdgeFlowoff: 0.25
+    - _EdgeWidth: 12
+    - _InvertDirection: 1
+    - _NoiseSpeed: 0.3
+    - _appear_range: 1.65
+    - _distortion_int: 0.1
+    - _edge_flowoff: 0.25
+    - _edge_width: 12
+    - _invert_direction: 1
+    - _noise_speed: 0.3
+    m_Colors:
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainCol: {r: 0, g: 1.7641543, b: 5.3403134, a: 0}
+    - _NoiseUv: {r: 5, g: 1, b: 0, a: 0}
+    - _main_col: {r: 0, g: 2.6318376, b: 3.9999995, a: 0}
+    - _noise_uv: {r: 5, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []

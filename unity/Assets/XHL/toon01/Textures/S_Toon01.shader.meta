@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 2fbdfeb4b215a074d938e0306fdaa6fc
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _1921_Shield_1_D: {fileID: 2800000, guid: 461bee7c3aa9d0c4790765fb3bca69cb, type: 3}
+  - _painting01_n: {fileID: 2800000, guid: 5a9668dfd1a8a3b4ba01fba7cb482e17, type: 3}
+  - _edge01: {fileID: 2800000, guid: 9a17a46281e07eb47ae8fcd572294ece, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

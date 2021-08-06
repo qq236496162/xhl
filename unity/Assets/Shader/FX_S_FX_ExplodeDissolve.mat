@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FX_S_FX_ExplodeDissolve
+  m_Shader: {fileID: 4800000, guid: 32d64f07db7501944a7b4b2579eeda1a, type: 3}
+  m_ShaderKeywords: _INVERTDIRECTION_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: d210b7896d58bf74abd08ddb1c646fe1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 2800000, guid: d210b7896d58bf74abd08ddb1c646fe1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 73b8ca8b42bda8443aa8db782815cea7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _disolve_tex:
+        m_Texture: {fileID: 2800000, guid: 96544628f0c6ee541b2b4657eba9f9fb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _displacement_tex:
+        m_Texture: {fileID: 2800000, guid: 96544628f0c6ee541b2b4657eba9f9fb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _gradient_tex:
+        m_Texture: {fileID: 2800000, guid: 9ce71fbe2dd88c54799bf014670b4d53, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _main_tex:
+        m_Texture: {fileID: 2800000, guid: 806a2ac2f2c9f9a4687f6682b588e163, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _mask_tex:
+        m_Texture: {fileID: 2800000, guid: 95b95418995b82047b80ee50c3624f5d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _noise_tex:
+        m_Texture: {fileID: 2800000, guid: 96544628f0c6ee541b2b4657eba9f9fb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaCutoff: 0.5
+    - _AppearPos: 2
+    - _DistortionInt: 0.07
+    - _EdgeFlowoff: 0.25
+    - _EdgeWidth: 12
+    - _Emissive: 14.38
+    - _InvertDirection: 1
+    - _NoiseSpeed: 0.36
+    - _aaa: 0.29
+    - _col_int: 1.28
+    - _disolve_uv: 1.93
+    - _displacement_int: 0
+    - _displacement_uv: 1
+    - _distortion_int: 0.1
+    - _noise_speed: 0.3
+    - _noise_uv: 0.4
+    m_Colors:
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainCol: {r: 0.34761727, g: 1.100788, b: 1.8443027, a: 0}
+    - _NoiseUv: {r: 5, g: 1, b: 0, a: 0}
+    - _Uv: {r: 2, g: 0.71, b: 0, a: 0.1}
+    - _main_col: {r: 0.11662913, g: 0, b: 0, a: 0}
+    - _noise_uv: {r: 5, g: 1, b: 0, a: 0}
+    - _uv: {r: 2, g: 1, b: 2, a: 0}
+  m_BuildTextureStacks: []
